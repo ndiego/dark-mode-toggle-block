@@ -1,1 +1,1 @@
-(()=>{const e=document.documentElement;document.querySelector("#theme-toggle").addEventListener("click",(function(){e.classList.toggle("theme-dark"),localStorage.setItem("darkMode",e.classList.contains("theme-dark")?"enabled":"disabled")}))})();
+(()=>{const e=document.documentElement;document.querySelector("#theme-toggle").addEventListener("click",(function(){e.classList.toggle("theme-dark"),window.localStorage.setItem("darkMode",e.classList.contains("theme-dark")?"enabled":"disabled")}))})();
