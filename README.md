@@ -2,9 +2,9 @@
 
 [![Create Release and Deploy to WordPress.org](https://github.com/richtabor/dark-mode-toggle-block/actions/workflows/create-release-and-deploy.yml/badge.svg)](https://github.com/richtabor/dark-mode-toggle-block/actions/workflows/create-release-and-deploy.yml)
 
-A WordPress block to add a toggle between light and dark appearances, as seen on [my blog](https://rich.blog). Adds a `theme-dark` class to the body element, when toggled on. The user's preference is then saved in local storage. 
+A WordPress block to add a toggle between light and dark appearances, as seen on [Rich Tabor's blog](https://rich.blog). Adds a `theme-dark` class to the body element, when toggled on. The user's preference is then saved in local storage. 
 
-[Read about it on my blog →](https://rich.blog/dark-mode-toggle-block/)
+[Read about it on Rich's blog →](https://rich.blog/dark-mode-toggle-block/)
 
 ### Visual
 
@@ -13,18 +13,32 @@ https://github.com/richtabor/dark-mode-toggle-block/assets/1813435/f7255865-6328
 ### How it works
 When toggled, the block will add a `.theme-dark` class to the body of the site. You can add CSS variables to target dark styles. 
 
-I did it this way on [my blog](https://rich.blog), which uses the theme.json `settings.custom.color` values for each color, unless there is a color created within the Site Editor with corresponding slug (i.e. `theme-1-dark`). I used this method so that a user could manipulate any given color without having to modify theme.json.
+To test with the Twenty Twenty-Five theme, you can add the following CSS to the theme's `style.css` file. Dark mode will use the Evening style variation colors. `.theme-dark body` is need for the frontend, whereas `body.theme-dark` is used in the Editor. 
 
 ```
-/* Dark styles */
-.theme-dark body {
-    --wp--preset--color--theme-1: var(--wp--preset--color--custom-theme-1-dark, var(--wp--custom--color--theme-1-dark));
-    --wp--preset--color--theme-2: var(--wp--preset--color--custom-theme-2-dark, var(--wp--custom--color--theme-2-dark));
-    --wp--preset--color--theme-3: var(--wp--preset--color--custom-theme-3-dark, var(--wp--custom--color--theme-3-dark));
-    --wp--preset--color--theme-4: var(--wp--preset--color--custom-theme-4-dark, var(--wp--custom--color--theme-4-dark));
-    --wp--preset--color--theme-5: var(--wp--preset--color--custom-theme-5-dark, var(--wp--custom--color--theme-5-dark));
-    --wp--preset--color--theme-6: var(--wp--preset--color--custom-theme-6-dark, var(--wp--custom--color--theme-6-dark));
+/* Dark styles - Uses Evening style variation colors */
+.theme-dark body,
+body.theme-dark {
+    --wp--preset--color--base: #1B1B1B;
+    --wp--preset--color--contrast: #F0F0F0;
+    --wp--preset--color--accent-1: #786D0A;
+    --wp--preset--color--accent-2: #442369;
+    --wp--preset--color--accent-3: #D1D0EA;
+    --wp--preset--color--accent-4: #CBCBCB;
+	--wp--preset--color--accent-5: #353535;
+	--wp--preset--color--accent-6: #FFFFFF33;
 }
+```
+
+Then make sure to enqueue the theme's stylesheet in the Editor by adding the following to the theme's `functions.php` file.
+
+```php
+function twentytwentyfive_enqueue_editor_styles() {
+
+    // Enqueue editor styles.
+    add_editor_style( 'style.css' );
+}
+add_action( 'after_setup_theme', 'twentytwentyfive_enqueue_editor_styles' );
 ```
 
 ### Development
