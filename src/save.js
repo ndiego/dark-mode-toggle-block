@@ -8,9 +8,9 @@ import classnames from 'classnames';
  */
 import {
 	useBlockProps,
-	__experimentalGetBorderClassesAndStyles as getBorderClassesAndStyles,
-	__experimentalGetColorClassesAndStyles as getColorClassesAndStyles,
-	__experimentalGetSpacingClassesAndStyles as getSpacingClassesAndStyles,
+	__experimentalGetBorderClassesAndStyles as getBorderClassesAndStyles, // eslint-disable-line
+	__experimentalGetColorClassesAndStyles as getColorClassesAndStyles, // eslint-disable-line
+	__experimentalGetSpacingClassesAndStyles as getSpacingClassesAndStyles, // eslint-disable-line
 } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 

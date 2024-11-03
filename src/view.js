@@ -7,7 +7,7 @@ function toggleTheme() {
 	body.classList.toggle( 'theme-dark' );
 
 	// Update localStorage based on the presence of the class.
-	localStorage.setItem(
+	window.localStorage.setItem(
 		'darkMode',
 		body.classList.contains( 'theme-dark' ) ? 'enabled' : 'disabled'
 	);

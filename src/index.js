@@ -1,14 +1,11 @@
 /**
  * WordPress dependencies
  */
-import { PluginPreviewMenuItem, PluginPostStatusInfo } from '@wordpress/editor';
+import { PluginPreviewMenuItem } from '@wordpress/editor';
 import { registerBlockType } from '@wordpress/blocks';
 import { registerPlugin } from '@wordpress/plugins';
-import { Path, SVG,PanelRow, __experimentalToggleGroupControl as ToggleGroupControl, __experimentalToggleGroupControlOption as ToggleGroupControlOption } from '@wordpress/components';
+import { Path, SVG } from '@wordpress/components';
 import { useCallback, useState, useEffect } from '@wordpress/element';
-
-import { compose } from '@wordpress/compose';
-import { withSelect, withDispatch, useSelect, useDispatch } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -27,7 +24,6 @@ import edit from './edit';
 import metadata from './block.json';
 import save from './save';
 
-
 const DarkModeIcon = (
 	<SVG
 		width="24"
@@ -36,9 +32,9 @@ const DarkModeIcon = (
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
 	>
-	<Path
-		d="M12.0892 4.39878C12.1655 4.53014 12.203 4.6805 12.1972 4.83233C12.1914 4.98417 12.1425 5.13122 12.0563 5.25634C11.4189 6.1822 11.126 7.30208 11.2284 8.42145C11.3309 9.54081 11.8222 10.5889 12.6171 11.3837C13.4119 12.1785 14.4601 12.6697 15.5795 12.772C16.6989 12.8743 17.8187 12.5812 18.7445 11.9437C18.8695 11.8578 19.0164 11.8091 19.1681 11.8033C19.3197 11.7975 19.4699 11.8349 19.6011 11.9112C19.7324 11.9874 19.8392 12.0993 19.9093 12.2339C19.9795 12.3685 20.0099 12.5202 19.9972 12.6715C19.6493 16.7766 16.2079 20 12.013 20C7.58734 20 4 16.4127 4 11.987C4 7.79217 7.22268 4.35069 11.3286 4.00286C11.4798 3.99005 11.6316 4.02046 11.7663 4.09055C11.9009 4.16064 12.0129 4.26753 12.0892 4.39878ZM9.94684 5.91675C8.91633 6.26831 7.99235 6.87657 7.26205 7.68418C6.53175 8.49178 6.01921 9.4721 5.77277 10.5327C5.52632 11.5933 5.5541 12.6991 5.85348 13.746C6.15286 14.7929 6.71397 15.7462 7.48389 16.5161C8.25381 17.2861 9.20717 17.8472 10.254 18.1465C11.3009 18.4459 12.4068 18.4737 13.4673 18.2273C14.5279 17.9808 15.5082 17.4683 16.3159 16.738C17.1235 16.0077 17.7317 15.0837 18.0833 14.0532C16.9494 14.4394 15.7301 14.5002 14.5634 14.2288C13.3967 13.9574 12.3294 13.3646 11.4824 12.5176C10.6355 11.6706 10.0427 10.6033 9.77125 9.43664C9.49985 8.26997 9.56067 7.05061 9.94684 5.91675Z"
-		fill="currentColor"
+		<Path
+			d="M12.0892 4.39878C12.1655 4.53014 12.203 4.6805 12.1972 4.83233C12.1914 4.98417 12.1425 5.13122 12.0563 5.25634C11.4189 6.1822 11.126 7.30208 11.2284 8.42145C11.3309 9.54081 11.8222 10.5889 12.6171 11.3837C13.4119 12.1785 14.4601 12.6697 15.5795 12.772C16.6989 12.8743 17.8187 12.5812 18.7445 11.9437C18.8695 11.8578 19.0164 11.8091 19.1681 11.8033C19.3197 11.7975 19.4699 11.8349 19.6011 11.9112C19.7324 11.9874 19.8392 12.0993 19.9093 12.2339C19.9795 12.3685 20.0099 12.5202 19.9972 12.6715C19.6493 16.7766 16.2079 20 12.013 20C7.58734 20 4 16.4127 4 11.987C4 7.79217 7.22268 4.35069 11.3286 4.00286C11.4798 3.99005 11.6316 4.02046 11.7663 4.09055C11.9009 4.16064 12.0129 4.26753 12.0892 4.39878ZM9.94684 5.91675C8.91633 6.26831 7.99235 6.87657 7.26205 7.68418C6.53175 8.49178 6.01921 9.4721 5.77277 10.5327C5.52632 11.5933 5.5541 12.6991 5.85348 13.746C6.15286 14.7929 6.71397 15.7462 7.48389 16.5161C8.25381 17.2861 9.20717 17.8472 10.254 18.1465C11.3009 18.4459 12.4068 18.4737 13.4673 18.2273C14.5279 17.9808 15.5082 17.4683 16.3159 16.738C17.1235 16.0077 17.7317 15.0837 18.0833 14.0532C16.9494 14.4394 15.7301 14.5002 14.5634 14.2288C13.3967 13.9574 12.3294 13.3646 11.4824 12.5176C10.6355 11.6706 10.0427 10.6033 9.77125 9.43664C9.49985 8.26997 9.56067 7.05061 9.94684 5.91675Z"
+			fill="currentColor"
 		/>
 	</SVG>
 );
@@ -68,9 +64,9 @@ const MoonIcon = (
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
 	>
-	<Path
-		d="M12.056 5.25626C12.2319 5.00102 12.2448 4.6672 12.0891 4.39911C11.9335 4.13101 11.6372 3.9767 11.3283 4.00287C7.22296 4.35074 4 7.79206 4 11.987C4 16.4125 7.58755 20 12.013 20C16.208 20 19.6495 16.777 19.9971 12.6714C20.0233 12.3625 19.869 12.0663 19.6009 11.9106C19.3328 11.755 18.999 11.768 18.7437 11.9439C17.9695 12.4776 17.0318 12.79 16.0186 12.79C13.3629 12.79 11.2099 10.637 11.2099 7.98124C11.2099 6.96821 11.5223 6.03055 12.056 5.25626Z"
-		fill="currentColor"
+		<Path
+			d="M12.056 5.25626C12.2319 5.00102 12.2448 4.6672 12.0891 4.39911C11.9335 4.13101 11.6372 3.9767 11.3283 4.00287C7.22296 4.35074 4 7.79206 4 11.987C4 16.4125 7.58755 20 12.013 20C16.208 20 19.6495 16.777 19.9971 12.6714C20.0233 12.3625 19.869 12.0663 19.6009 11.9106C19.3328 11.755 18.999 11.768 18.7437 11.9439C17.9695 12.4776 17.0318 12.79 16.0186 12.79C13.3629 12.79 11.2099 10.637 11.2099 7.98124C11.2099 6.96821 11.5223 6.03055 12.056 5.25626Z"
+			fill="currentColor"
 		/>
 	</SVG>
 );
@@ -93,59 +89,66 @@ registerBlockType( metadata.name, {
 } );
 
 function DarkModePreviewMenuItem() {
-    const [isDarkMode, setDarkMode] = useState( false );
-    const [iframe, setIframe] = useState( null );
+	const [ isDarkMode, setDarkMode ] = useState( false );
+	const [ iframe, setIframe ] = useState( null );
 
-    // Separate the iframe class handling logic
-    const toggleDarkMode = useCallback( () => {
+	// Separate the iframe class handling logic
+	const toggleDarkMode = useCallback( () => {
+		if ( ! iframe?.contentDocument?.body ) {
+			return;
+		}
 
-        if ( ! iframe?.contentDocument?.body ) {
-            return;
-        }
+		const { classList } = iframe.contentDocument.body;
+		if ( isDarkMode ) {
+			classList.remove( 'theme-dark' );
+		} else {
+			classList.add( 'theme-dark' );
+		}
+		setDarkMode( ! isDarkMode );
+	}, [ iframe, isDarkMode ] );
 
-        const { classList } = iframe.contentDocument.body;
-        isDarkMode ? classList.remove( 'theme-dark' ) : classList.add( 'theme-dark' );
-        setDarkMode( ! isDarkMode );
-    }, [iframe, isDarkMode] );
+	// Find and set the iframe element
+	useEffect( () => {
+		const findIframe = () => {
+			const editorCanvas = document.querySelector(
+				'[name="editor-canvas"]'
+			);
+			if ( editorCanvas ) {
+				setIframe( editorCanvas );
+				return true;
+			}
+			return false;
+		};
 
-    // Find and set the iframe element
-    useEffect( () => {
-        const findIframe = () => {
-            const editorCanvas = document.querySelector( '[name="editor-canvas"]' );
-            if ( editorCanvas ) {
-                setIframe( editorCanvas );
-                return true;
-            }
-            return false;
-        };
+		// Try to find iframe immediately
+		if ( findIframe() ) {
+			return;
+		}
 
-        // Try to find iframe immediately
-        if ( findIframe() ) {
-            return;
-        }
+		// Set up observer if iframe isn't immediately available
+		const observer = new MutationObserver( () => {
+			if ( findIframe() ) {
+				observer.disconnect();
+			}
+		} );
 
-        // Set up observer if iframe isn't immediately available
-        const observer = new MutationObserver( () => {
-            if ( findIframe() ) {
-                observer.disconnect();
-            }
-        } );
+		observer.observe( document.body, { childList: true, subtree: true } );
 
-        observer.observe( document.body, { childList: true, subtree: true } );
+		return () => observer.disconnect();
+	}, [] );
 
-        return () => observer.disconnect();
-    }, [] );
-
-    return (
-        <PluginPreviewMenuItem
-            icon={ isDarkMode ? LightModeIcon : DarkModeIcon }
-            onClick={ toggleDarkMode }
-        >
-            { isDarkMode ? __( 'Preview light mode' ) : __( 'Preview dark mode' ) }
-        </PluginPreviewMenuItem>
-    );
+	return (
+		<PluginPreviewMenuItem
+			icon={ isDarkMode ? LightModeIcon : DarkModeIcon }
+			onClick={ toggleDarkMode }
+		>
+			{ isDarkMode
+				? __( 'Preview light mode' )
+				: __( 'Preview dark mode' ) }
+		</PluginPreviewMenuItem>
+	);
 }
 
 registerPlugin( 'dark-mode-preview', {
-    render: DarkModePreviewMenuItem,
+	render: DarkModePreviewMenuItem,
 } );

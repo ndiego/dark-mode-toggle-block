@@ -9,17 +9,17 @@ import classnames from 'classnames';
 import {
 	useBlockProps,
 	InspectorControls,
-	__experimentalUseColorProps as useColorProps,
-	__experimentalUseBorderProps as useBorderProps,
-	__experimentalGetSpacingClassesAndStyles as useSpacingProps,
+	__experimentalUseColorProps as useColorProps, // eslint-disable-line
+	__experimentalUseBorderProps as useBorderProps, // eslint-disable-line
+	__experimentalGetSpacingClassesAndStyles as useSpacingProps, // eslint-disable-line
 } from '@wordpress/block-editor';
 import {
 	Disabled,
 	Icon,
-	__experimentalToggleGroupControl as ToggleGroupControl,
-	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
-	__experimentalToolsPanel as ToolsPanel,
-	__experimentalToolsPanelItem as ToolsPanelItem,
+	__experimentalToggleGroupControl as ToggleGroupControl, // eslint-disable-line
+	__experimentalToggleGroupControlOption as ToggleGroupControlOption, // eslint-disable-line
+	__experimentalToolsPanel as ToolsPanel, // eslint-disable-line
+	__experimentalToolsPanelItem as ToolsPanelItem, // eslint-disable-line
 } from '@wordpress/components';
 import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
@@ -29,12 +29,6 @@ import { __ } from '@wordpress/i18n';
  */
 import { Icons } from './icons';
 
-/**
- * The edit function describes the structure of your block in the context of the
- * editor. This represents what the editor will render when the block is used.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
- */
 export default function Edit( { attributes, setAttributes } ) {
 	const { className, icon, size } = attributes;
 	const blockProps = useBlockProps( {
